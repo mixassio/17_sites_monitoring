@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 from datetime import datetime, timedelta
 import requests
 
@@ -17,7 +18,8 @@ def is_server_respond_with_200(url):
 
 
 def get_domain_expiration_date(domain_name):
-    domain = requests.get('http://htmlweb.ru/analiz/api.php?whois&url=' + domain_name + '&json')
+    url = 'http://htmlweb.ru/analiz/api.php?whois&url=' + domain_name + '&json'
+    domain = requests.get(url)
     if domain.json()['paid'] == '01.01.1970':
         result = re.findall(r'xpiry\s\w*\:\s\w*(\d\d\d\d\-\d\d\-\d\d)', domain.json()['whois'])
         date_expiry = datetime.strptime(result[0], "%Y-%m-%d").date()
@@ -30,7 +32,7 @@ def get_domain_expiration_date(domain_name):
     return date_expiry, date_ok
 
 if __name__ == '__main__':
-    list_url = load_urls4check('./url.txt')
+    list_url = load_urls4check(sys.argv[1])
     for site in list_url:
         status_code = is_server_respond_with_200(site)
         date_expiry, date_ok = get_domain_expiration_date(site)
