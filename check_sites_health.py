@@ -19,8 +19,8 @@ def is_server_respond_with_200(url):
 
 
 def get_domain_expiration_date(domain_name):
-    payload1 = {'url': domain_name, 'json': ''}
-    domain = requests.get("http://htmlweb.ru/analiz/api.php?whois", params=payload1)
+    payload = {'url': domain_name, 'json': ''}
+    domain = requests.get("http://htmlweb.ru/analiz/api.php?whois", params=payload)
     domain = requests.get(url)
     if domain.json()['paid'] == '01.01.1970':
         result = re.findall(r'xpiry\s\w*\:\s\w*(\d\d\d\d\-\d\d\-\d\d)', domain.json()['whois'])
