@@ -2,10 +2,10 @@
 
 The script check url from your file url.txt and get answer about status server and date of expiry.
 For work, create txt-file with list of url, for example:
-https://devman.org/
-https://habrahabr.ru/
-https://mail.ru/
-https://meduza.io/
+- https://devman.org/
+- https://habrahabr.ru/
+- https://mail.ru/
+- https://meduza.io/
 
 # HOW RUN
 
