@@ -9,6 +9,7 @@ def load_urls4check(filepath):
     if os.path.exists(filepath):
         with open(filepath, 'r') as file_text:
             list_url = [line.strip() for line in file_text]
+    print(list_url)
     return list_url
 
 
@@ -18,7 +19,8 @@ def is_server_respond_with_200(url):
 
 
 def get_domain_expiration_date(domain_name):
-    url = 'http://htmlweb.ru/analiz/api.php?whois&url=' + domain_name + '&json'
+    payload1 = {'url': domain_name, 'json': ''}
+    domain = requests.get("http://htmlweb.ru/analiz/api.php?whois", params=payload1)
     domain = requests.get(url)
     if domain.json()['paid'] == '01.01.1970':
         result = re.findall(r'xpiry\s\w*\:\s\w*(\d\d\d\d\-\d\d\-\d\d)', domain.json()['whois'])
